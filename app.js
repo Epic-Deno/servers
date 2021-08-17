@@ -858,3 +858,7 @@ app.get('/data/getBoxOffice', (req, res) => {
       ];
       res.send(data)
 })
+/*测试navigator.sendBeacon()Api*/
+app.post('/loginOut',(req, res) => {
+    console.log(req)
+})
