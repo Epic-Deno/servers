@@ -3,14 +3,14 @@
  * @Version: 2.0
  * @Autor: Pony
  * @Date: 2019-12-19 17:51:01
- * @LastEditors: ZHANG ZHEN
- * @LastEditTime: 2021-05-11 09:44:51
+ * @LastEditors: Pony
+ * @LastEditTime: 2021-08-27 00:12:46
  */
 var mysql = require('mysql');
 var pool = mysql.createPool({
     host:'127.0.0.1',
     port:3306,
-    database:'pony',
+    database:'Pony',
     user:'root',
     password:'ponyzhang',
 });

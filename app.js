@@ -458,7 +458,7 @@ app.get('/userName', (req, res) => {
     let username = req.query.username || '';
     console.log(username);
     console.log(111);
-    pool.query(' select * from  user where username= ?', [username], (err, result) => {
+    pool.query(' select * from  user where name= ?', [username], (err, result) => {
         console.log(result, '数据返回');
         let obj = new Object();
         if (result) {
@@ -468,7 +468,7 @@ app.get('/userName', (req, res) => {
             obj.success = false;
             obj.result = null
         }
-        res.send()
+        res.send(obj)
 
     })
 })
@@ -861,4 +861,14 @@ app.get('/data/getBoxOffice', (req, res) => {
 /*测试navigator.sendBeacon()Api*/
 app.post('/loginOut',(req, res) => {
     console.log(req)
+})
+
+/*尝试提取json*/
+app.post('/getJsonData',(req, res) => {
+    console.log(req.body)
+    res.send({
+        message: 'ok',
+        success: true,
+        result: req.body
+    })
 })
