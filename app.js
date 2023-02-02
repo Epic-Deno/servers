@@ -1,12 +1,18 @@
 //声明服务
 const express = require("express");
 //引入解析Gzip格式
-const compression = require('compression');
+// const compression = require('compression');
+// history 404问题
+// const history = require('connect-history-api-fallback')
 //商品分类的JSON
 // import { CategoryResults } from './apk'
 const CategoryResults = require('./model/apk')
 //商品
  const allGoods = require('./model/categoryModel')
+ // 医院信息
+ const dockers = require('./model/docker')
+ // 文件代理
+ const proxy = require('http-proxy-middleware');
 //文件操作
 // const  fs = requier('fs')
 //文件上传模块
@@ -16,8 +22,9 @@ const app = express();
 //解析Gzip
 // app.use(compression());
 
-app.use(compression({filter: shouldCompress}))
+// app.use(compression({filter: shouldCompress}))
  
+
 function shouldCompress (req, res) {
  if (req.headers['x-no-compression']) {
   // 这里就过滤掉了请求头包含'x-no-compression'
@@ -34,6 +41,10 @@ app.use(bodyParser.json({ limit: '1mb' })) //指定json格式
 app.use(bodyParser.urlencoded({ extended: true }))
 //创建静态文件夹
 app.use(express.static('public'))
+// 加载history
+// app.use(history({
+//     index: '/public/index.html'
+// }))
 //创建端口
 app.listen(3002);
 
@@ -861,6 +872,11 @@ app.get('/data/getBoxOffice', (req, res) => {
 /*测试navigator.sendBeacon()Api*/
 app.post('/loginOut',(req, res) => {
     console.log(req)
+    res.send({
+        message: 'ok',
+        success: true,
+        result: req.body
+    })
 })
 
 /*尝试提取json*/
@@ -871,4 +887,21 @@ app.post('/getJsonData',(req, res) => {
         success: true,
         result: req.body
     })
+})
+/*测试滚动*/
+app.get('/scrollTargetEL', (req, res) => {
+    res.send({
+        message: '成功',
+        success: true,
+        result: {
+            id: '004',
+            time: new Date().getTime()
+        }
+    })
+})
+
+/*模拟爬东部战区*/
+app.post('/getDeptSchForDoc', (req, res) => {
+    console.log(req.body)
+    res.send(dockers)
 })

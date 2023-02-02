@@ -1,0 +1,396 @@
+<!DOCTYPE html><html lang=zh-cmn-Hans><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>大型活动交通警卫保障系统</title><link rel=icon href=/icon.png><script src=/js/liveplayer-lib.min.js></script><script src=https://cdn.bootcdn.net/ajax/libs/babel-polyfill/7.2.5/polyfill.min.js></script><style>html,
+    body,
+    #app {
+      height: 100%;
+      margin: 0px;
+      padding: 0px;
+    }
+
+    .chromeframe {
+      margin: 0.2em 0;
+      background: #ccc;
+      color: #000;
+      padding: 0.2em 0;
+    }
+
+    #loader-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 999999;
+    }
+
+    #loader {
+      display: block;
+      position: relative;
+      left: 50%;
+      top: 50%;
+      width: 120px;
+      height: 120px;
+      margin: -75px 0 0 -75px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      /* COLOR 1 */
+      border-top-color: #fff;
+      -webkit-animation: spin 2s linear infinite;
+      /* Chrome, Opera 15+, Safari 5+ */
+      -ms-animation: spin 2s linear infinite;
+      /* Chrome, Opera 15+, Safari 5+ */
+      -moz-animation: spin 2s linear infinite;
+      /* Chrome, Opera 15+, Safari 5+ */
+      -o-animation: spin 2s linear infinite;
+      /* Chrome, Opera 15+, Safari 5+ */
+      animation: spin 2s linear infinite;
+      /* Chrome, Firefox 16+, IE 10+, Opera */
+      z-index: 1001;
+    }
+
+    #loader:before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      /* COLOR 2 */
+      border-top-color: #fff;
+      -webkit-animation: spin 3s linear infinite;
+      /* Chrome, Opera 15+, Safari 5+ */
+      -moz-animation: spin 3s linear infinite;
+      /* Chrome, Opera 15+, Safari 5+ */
+      -o-animation: spin 3s linear infinite;
+      /* Chrome, Opera 15+, Safari 5+ */
+      -ms-animation: spin 3s linear infinite;
+      /* Chrome, Opera 15+, Safari 5+ */
+      animation: spin 3s linear infinite;
+      /* Chrome, Firefox 16+, IE 10+, Opera */
+    }
+
+    #loader:after {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      border-top-color: #fff;
+      /* COLOR 3 */
+      -moz-animation: spin 1.5s linear infinite;
+      /* Chrome, Opera 15+, Safari 5+ */
+      -o-animation: spin 1.5s linear infinite;
+      /* Chrome, Opera 15+, Safari 5+ */
+      -ms-animation: spin 1.5s linear infinite;
+      /* Chrome, Opera 15+, Safari 5+ */
+      -webkit-animation: spin 1.5s linear infinite;
+      /* Chrome, Opera 15+, Safari 5+ */
+      animation: spin 1.5s linear infinite;
+      /* Chrome, Firefox 16+, IE 10+, Opera */
+    }
+
+    @-webkit-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+        /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(0deg);
+        /* IE 9 */
+        transform: rotate(0deg);
+        /* Firefox 16+, IE 10+, Opera */
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+        /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(360deg);
+        /* IE 9 */
+        transform: rotate(360deg);
+        /* Firefox 16+, IE 10+, Opera */
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+        /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(0deg);
+        /* IE 9 */
+        transform: rotate(0deg);
+        /* Firefox 16+, IE 10+, Opera */
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+        /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(360deg);
+        /* IE 9 */
+        transform: rotate(360deg);
+        /* Firefox 16+, IE 10+, Opera */
+      }
+    }
+
+    #loader-wrapper .loader-section {
+      position: fixed;
+      top: 0;
+      width: 51%;
+      height: 100%;
+      background: #49a9ee;
+      /* Old browsers */
+      z-index: 1000;
+      -webkit-transform: translateX(0);
+      /* Chrome, Opera 15+, Safari 3.1+ */
+      -ms-transform: translateX(0);
+      /* IE 9 */
+      transform: translateX(0);
+      /* Firefox 16+, IE 10+, Opera */
+    }
+
+    #loader-wrapper .loader-section.section-left {
+      left: 0;
+    }
+
+    #loader-wrapper .loader-section.section-right {
+      right: 0;
+    }
+
+    /* Loaded */
+
+    .loaded #loader-wrapper .loader-section.section-left {
+      -webkit-transform: translateX(-100%);
+      /* Chrome, Opera 15+, Safari 3.1+ */
+      -ms-transform: translateX(-100%);
+      /* IE 9 */
+      transform: translateX(-100%);
+      /* Firefox 16+, IE 10+, Opera */
+      -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+      transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+
+    .loaded #loader-wrapper .loader-section.section-right {
+      -webkit-transform: translateX(100%);
+      /* Chrome, Opera 15+, Safari 3.1+ */
+      -ms-transform: translateX(100%);
+      /* IE 9 */
+      transform: translateX(100%);
+      /* Firefox 16+, IE 10+, Opera */
+      -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+      transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+
+    .loaded #loader {
+      opacity: 0;
+      -webkit-transition: all 0.3s ease-out;
+      transition: all 0.3s ease-out;
+    }
+
+    .loaded #loader-wrapper {
+      visibility: hidden;
+      -webkit-transform: translateY(-100%);
+      /* Chrome, Opera 15+, Safari 3.1+ */
+      -ms-transform: translateY(-100%);
+      /* IE 9 */
+      transform: translateY(-100%);
+      /* Firefox 16+, IE 10+, Opera */
+      -webkit-transition: all 0.3s 1s ease-out;
+      transition: all 0.3s 1s ease-out;
+    }
+
+    /* JavaScript Turned Off */
+
+    .no-js #loader-wrapper {
+      display: none;
+    }
+
+    .no-js h1 {
+      color: #222222;
+    }
+
+    #loader-wrapper .load_title {
+      font-family: 'Open Sans';
+      color: #fff;
+      font-size: 14px;
+      width: 100%;
+      text-align: center;
+      z-index: 9999999999999;
+      position: absolute;
+      top: 60%;
+      opacity: 1;
+      line-height: 30px;
+    }
+
+    #loader-wrapper .load_title span {
+      font-weight: normal;
+      font-style: italic;
+      font-size: 14px;
+      color: #fff;
+      opacity: 0.5;
+    }
+
+
+    /* 滚动条优化 start */
+
+    body::-webkit-scrollbar {
+      /* width: 0;
+      height: 8px; */
+      display: none;
+    }
+
+
+
+    body::-webkit-scrollbar-track {
+      background: #f6f6f6;
+      border-radius: 2px;
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background: #cdcdcd;
+      border-radius: 2px;
+    }
+
+    body::-webkit-scrollbar-thumb:hover {
+      background: #747474;
+    }
+
+    body::-webkit-scrollbar-corner {
+      background: #f6f6f6;
+    }
+
+    .ant-menu-dark,
+    .ant-menu-dark .ant-menu-sub {
+      background-color: #004677 !important;
+    }
+
+    /* 滚动条优化 end */
+
+    /* 优化table不对齐及无法省略问题 */
+    .ant-table>.ant-table-content>.ant-table-scroll>.ant-table-body>.ant-table-fixed,
+    .ant-table>.ant-table-content>.ant-table-scroll>.ant-table-header>.ant-table-fixed {
+      width: fit-content !important;
+      width: -webkit-fit-content;
+      width: -moz-fit-content;
+    }
+
+    /* 优化table滚动条start */
+    .ant-table-body-inner::-webkit-scrollbar {
+      width: 8px;
+      background-color: transparent;
+      height: 8px;
+    }
+
+    /* ant-table-body */
+    .ant-table-body::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    .ant-table-body::-webkit-scrollbar-track {
+      background: #f6f6f6;
+      border-radius: 2px;
+    }
+
+    .ant-table-body::-webkit-scrollbar-thumb {
+      background: #cdcdcd;
+      border-radius: 2px;
+    }
+
+    .ant-table-body::-webkit-scrollbar-thumb:hover {
+      background: #747474;
+    }
+
+    ::-webkit-scrollbar-corner {
+      background: #f6f6f6;
+    }
+
+    /* ant-table-header */
+    .ant-table-header::-webkit-scrollbar {
+      width: 8px;
+      height: 17px;
+    }
+
+    .ant-table-header::-webkit-scrollbar-track {
+      background: #f6f6f6;
+      border-radius: 2px;
+    }
+
+    .ant-table-header::-webkit-scrollbar-thumb {
+      background: #cdcdcd;
+      border-radius: 2px;
+    }
+
+    .ant-table-header::-webkit-scrollbar-thumb:hover {
+      background: #747474;
+    }
+
+    .ant-table-header::-webkit-scrollbar-corner {
+      background: #f6f6f6;
+    }
+
+    /* 优化table滚动条end */
+
+    /* lucksheet单元格的输入框对应的className为luckysheet-input-box，其position为absolute，页面中存在其他absolute定位的元素的z-index值大于luckysheet-input-box对应的z-index时，双击单元格时输入框不会显示。
+  解决：单独设置luckysheet-input-box的z-index属性 */
+    .luckysheet-input-box {
+      z-index: 10000000000000000;
+      /*具体的值根据实际情况而定，需要比下面的其他元素的z-index大*/
+    }
+
+    /* 优化选择框的滚动条 start */
+    .ant-select-dropdown-menu::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    .ant-select-dropdown-menu::-webkit-scrollbar-track {
+      background: #f6f6f6;
+      border-radius: 2px;
+    }
+
+    .ant-select-dropdown-menu::-webkit-scrollbar-thumb {
+      background: #cdcdcd;
+      border-radius: 2px;
+    }
+
+    .ant-select-dropdown-menu::-webkit-scrollbar-thumb:hover {
+      background: #747474;
+    }
+
+    .ant-select-dropdown-menu::-webkit-scrollbar-corner {
+      background: #f6f6f6;
+    }
+
+    /* 树形选择框优化滚动条 */
+    .ant-select-tree-treenode-switcher-open::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    .ant-select-tree-treenode-switcher-open::-webkit-scrollbar-track {
+      background: #f6f6f6;
+      border-radius: 2px;
+    }
+
+    .ant-select-tree-treenode-switcher-open::-webkit-scrollbar-thumb {
+      background: #cdcdcd;
+      border-radius: 2px;
+    }
+
+    .ant-select-tree-treenode-switcher-open::-webkit-scrollbar-thumb:hover {
+      background: #747474;
+    }
+
+    .ant-select-tree-treenode-switcher-open::-webkit-scrollbar-corner {
+      background: #f6f6f6;
+    }
+
+    .pswp__bg {
+      background: rgba(0, 0, 0, 0.7)!important;
+    }</style><script>window._CONFIG = {}
+    // window._CONFIG['domianURL'] = 'http://52.131.244.50:8070' // 测试
+    // window._CONFIG['domianURL'] = 'http://172.16.31.24:9088' //
+    window._CONFIG['casPrefixUrl'] = 'http://cas.example.org:8443/cas'
+    window._CONFIG['imgDomainURL'] = window._CONFIG['domianURL'] + '/sys/common/view'
+    window._CONFIG['pdfDomainURL'] = window._CONFIG['domianURL'] + '/sys/common/pdf/pdfPreviewIframe'</script><link href=/css/chunk-51fdb882.7f88fffe.css rel=prefetch><link href=/js/chunk-51fdb882.d8a4ae1c.js rel=prefetch><link href=/css/app.bb63c0da.css rel=preload as=style><link href=/css/chunk-vendors.bd3c5839.css rel=preload as=style><link href=/js/app.3f82b93c.js rel=preload as=script><link href=/js/chunk-vendors.4380983a.js rel=preload as=script><link href=/css/chunk-vendors.bd3c5839.css rel=stylesheet><link href=/css/app.bb63c0da.css rel=stylesheet></head><body><div id=app><div id=loader-wrapper><div id=loader></div><div class="loader-section section-left"></div><div class="loader-section section-right"></div><div class=load_title>正在加载,请耐心等待</div></div></div><script src=/js/chunk-vendors.4380983a.js></script><script src=/js/app.3f82b93c.js></script></body></html>

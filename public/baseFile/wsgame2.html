@@ -1,0 +1,44 @@
+<!--
+ * @Description: Description
+ * @Author: ZHANG ZHEN
+ * @Date: 2021-05-24 11:57:33
+ * @LastEditors: Pony
+ * @LastEditTime: 2021-10-28 18:09:42
+-->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .kuang{text-align: center;margin-top:200px;}
+        #mess{text-align: center}
+    </style>
+</head>
+<body>
+    <div id="mess"></div>
+
+    <script>
+        var mess = document.getElementById("mess");
+        if(window.WebSocket){
+            var ws = new WebSocket('ws://52.131.244.50:8070/websocket/2f36425b088ed73910406e3aa4397de6/lamp_phase/ae517c8b258ff0ca91d02dd9b371dbc9');
+            console.log(ws)
+            ws.onopen = function(e){
+                console.log("连接服务器成功");
+                ws.send("game2");
+            }
+            ws.onclose = function(e){
+                console.log("服务器关闭");
+            }
+            ws.onerror = function(){
+                console.log("连接出错");
+            }
+
+            ws.onmessage = function(e){
+                var time = new Date();
+                mess.innerHTML+=time+"的消息："+e.data+"<br>"
+            }
+        }
+    </script>
+</body>
+</html>
